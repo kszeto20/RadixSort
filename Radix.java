@@ -58,6 +58,7 @@ public class Radix {
           negVal.add(rem * -1);
         }
       }
+    }
       radixSortSimple(posVal);
       radixSortSimple(negVal);
 
@@ -68,6 +69,5 @@ public class Radix {
         data.add(actNeg * -1);
       }
       data.extend(posVal);
-    }
   }
 }

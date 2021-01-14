@@ -28,7 +28,7 @@ public class Radix {
     SortableLinkedList[] buckets = new SortableLinkedList[10];
     int max = 1;
     for(int i = 0; i < data.size(); i++){
-      if(length(data.get(i)) > max){
+      if(length(data.get(i)) > 1){
         max = length(data.get(i));
       }
     }
@@ -42,6 +42,32 @@ public class Radix {
         buckets[nth(rem,pos)].add(rem);
       }
       merge(data, buckets);
+    }
+  }
+
+  public static void radixSort (SortableLinkedList data) {
+    SortableLinkedList posVal = new SortableLinkedList();
+    SortableLinkedList negVal = new SortableLinkedList();
+    for (int i = 0; i < data.size(); i++) {
+      while (data.size() > 0) {
+        int rem = data.remove(0);
+        if (rem >= 0) {
+          posVal.add(rem);
+        }
+        else {
+          negVal.add(rem * -1);
+        }
+      }
+      radixSortSimple(posVal);
+      radixSortSimple(negVal);
+
+      //negative currently in reverse
+      // must merge from the back
+      for (int n = negVal.size() - 1; n >= 0; n--) {
+        int actNeg = negVal.get(n);
+        data.add(actNeg * -1);
+      }
+      data.extend(posVal);
     }
   }
 }
